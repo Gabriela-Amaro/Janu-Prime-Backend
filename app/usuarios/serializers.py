@@ -10,7 +10,8 @@ from estabelecimentos.models import Estabelecimento
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ["email", "tipo_usuario"]
+        fields = ["email", "tipo_usuario", 'created_at', 'updated_at']
+        read_only_fields = ["tipo_usuario", 'created_at', 'updated_at']
 
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -24,10 +25,8 @@ class ClienteSerializer(serializers.ModelSerializer):
             "cpf",
             "telefone",
             "pontos",
-            "created_at",
-            "updated_at",
         ]
-        read_only_fields = ["cpf", "pontos", "created_at", "updated_at"]
+        read_only_fields = ["cpf", "pontos"]
 
 
 class AdministradorSerializer(serializers.ModelSerializer):
@@ -42,15 +41,11 @@ class AdministradorSerializer(serializers.ModelSerializer):
             "cpf",
             "estabelecimento",
             "super_user",
-            "created_at",
-            "updated_at",
         ]
         read_only_fields = [
             "cpf",
             "estabelecimento",
             "super_user",
-            "created_at",
-            "updated_at",
         ]
 
 
@@ -69,7 +64,7 @@ class ClienteRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = ["email", "password", "password2", "nome", "cpf", "telefone"]
-        read_only_fields = ["created_at", "updated_at", "is_staff"]
+        read_only_fields = ["is_staff"]
 
     def validate(self, attrs):
         if attrs["password"] != attrs["password2"]:
@@ -129,7 +124,7 @@ class AdministradorRegistrationSerializer(serializers.ModelSerializer):
             "estabelecimento",
             "super_user",
         ]
-        read_only_fields = ["created_at", "updated_at", "is_staff"]
+        read_only_fields = ["is_staff"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

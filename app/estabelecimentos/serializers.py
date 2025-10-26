@@ -6,4 +6,4 @@ class EstabelecimentoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estabelecimento
         fields = "__all__"
-        read_only_fields = ["created_at", "updated_at"]
+        read_only_fields = ["cnpj", "created_at", "updated_at"]
