@@ -25,6 +25,7 @@ class UsuarioManager(BaseUserManager):
 
         if extra_fields.get("is_staff") is not True:
             raise ValueError("Superuser must have is_staff=True.")
+        
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
@@ -68,9 +69,6 @@ class Cliente(models.Model):
     telefone = PhoneNumberField(region="BR", unique=True)
     pontos = models.IntegerField(default=0)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
     class Meta:
         verbose_name = "Cliente"
         verbose_name_plural = "Clientes"
@@ -87,9 +85,6 @@ class Administrador(models.Model):
     nome = models.CharField(max_length=255)
     cpf = BRCPFField(unique=True)
     super_user = models.BooleanField(default=False)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Administrador"
