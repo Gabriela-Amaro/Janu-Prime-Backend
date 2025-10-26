@@ -1,4 +1,4 @@
-# core/models.py
+# usuarios/models.py
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
