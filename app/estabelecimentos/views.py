@@ -1,10 +1,17 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, mixins
 from .models import Estabelecimento
 from .serializers import EstabelecimentoSerializer
 from .permissions import IsSuperUserOfSameEstablishmentOrPlatformAdmin
 
 
-class EstabelecimentoViewSet(viewsets.ModelViewSet):
+class EstabelecimentoViewSet(
+        mixins.ListModelMixin,
+        mixins.RetrieveModelMixin,
+        mixins.UpdateModelMixin,
+        mixins.DestroyModelMixin,
+        viewsets.GenericViewSet,
+    ):
+    
     serializer_class = EstabelecimentoSerializer
 
     def get_queryset(self):
@@ -30,9 +37,6 @@ class EstabelecimentoViewSet(viewsets.ModelViewSet):
             permission_classes = [IsSuperUserOfSameEstablishmentOrPlatformAdmin]
 
         return [permission() for permission in permission_classes]
-
-    def perform_create(self, serializer):
-        pass
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
