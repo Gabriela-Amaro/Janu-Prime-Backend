@@ -8,7 +8,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = ["email", "tipo_usuario", "created_at", "updated_at"]
-        read_only_fields = ["tipo_usuario", "created_at", "updated_at"]
+        read_only_fields = ["id", "tipo_usuario", "created_at", "updated_at"]
 
 
 class ChangePasswordSerializer(serializers.Serializer):
