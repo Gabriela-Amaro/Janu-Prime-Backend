@@ -1,13 +1,9 @@
-# usuarios/models.py
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
 )
 from django.db import models
-from localflavor.br.models import BRCPFField
-from phonenumber_field.modelfields import PhoneNumberField
-
 
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -60,35 +56,3 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
-
-class Cliente(models.Model):
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
-    nome = models.CharField(max_length=255)
-    cpf = BRCPFField(unique=True)
-    telefone = PhoneNumberField(region="BR", unique=True)
-    pontos = models.IntegerField(default=0)
-
-    class Meta:
-        verbose_name = "Cliente"
-        verbose_name_plural = "Clientes"
-
-    def __str__(self):
-        return self.nome
-
-
-class Administrador(models.Model):
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
-    estabelecimento = models.ForeignKey(
-        "estabelecimentos.Estabelecimento", on_delete=models.CASCADE
-    )
-    nome = models.CharField(max_length=255)
-    cpf = BRCPFField(unique=True)
-    super_user = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name = "Administrador"
-        verbose_name_plural = "Administradores"
-
-    def __str__(self):
-        return self.nome
