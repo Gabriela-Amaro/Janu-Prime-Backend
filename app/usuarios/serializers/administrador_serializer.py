@@ -119,4 +119,3 @@ class AdministradorRegistrationSerializer(serializers.ModelSerializer):
             )
 
         return administrador
-

@@ -13,6 +13,7 @@ import logging
 
 logger = logging.getLogger("app")
 
+
 class ClienteCadastroView(generics.CreateAPIView):
     queryset = Cliente.objects.all()
     serializer_class = ClienteRegistrationSerializer
@@ -29,10 +30,7 @@ class ClienteCadastroView(generics.CreateAPIView):
 
         headers = self.get_success_headers(display_serializer.data)
 
-        logger.info(
-            "Novo cliente cadastrado: %s",
-            display_serializer.data.get("email")
-        )
+        logger.info("Novo cliente cadastrado: %s", display_serializer.data.get("email"))
 
         return Response(
             display_serializer.data, status=status.HTTP_201_CREATED, headers=headers
@@ -45,11 +43,8 @@ class ClienteDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated, IsClienteOwner]
 
     def perform_destroy(self, instance):
-        email = instance.usuario.email 
+        email = instance.usuario.email
 
         instance.usuario.delete()
-        
-        logger.info(
-            "Cliente deletado: %s",
-            email
-        )
+
+        logger.info("Cliente deletado: %s", email)

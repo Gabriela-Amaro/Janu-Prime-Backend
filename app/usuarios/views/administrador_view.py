@@ -34,7 +34,9 @@ class AdministradorCadastroView(generics.CreateAPIView):
         logger.info(
             "Novo administrador cadastrado: %s",
             display_serializer.data.get("email"),
-            extra={'estabelecimento_id': display_serializer.data.get("estabelecimento")}
+            extra={
+                "estabelecimento_id": display_serializer.data.get("estabelecimento")
+            },
         )
 
         return Response(
@@ -51,13 +53,13 @@ class AdministradorDetailView(generics.RetrieveUpdateDestroyAPIView):
     ]
 
     def perform_destroy(self, instance):
-        email= instance.usuario.email
+        email = instance.usuario.email
         estabelecimento_id = instance.estabelecimento.id
 
         instance.usuario.delete()
-        
+
         logger.info(
             "Administrador deletado: %s",
             email,
-            extra={'estabelecimento_id': estabelecimento_id}
+            extra={"estabelecimento_id": estabelecimento_id},
         )

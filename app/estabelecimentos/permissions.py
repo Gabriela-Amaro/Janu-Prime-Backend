@@ -10,9 +10,9 @@ class IsSuperUserOfSameEstablishmentOrPlatformAdmin(BasePermission):
 
         if request.method not in SAFE_METHODS:
             return (
-                hasattr(request.user, 'administrador') and
-                request.user.administrador.super_user and
-                request.user.administrador.estabelecimento == obj
+                hasattr(request.user, "administrador")
+                and request.user.administrador.super_user
+                and request.user.administrador.estabelecimento == obj
             )
-        
+
         return True

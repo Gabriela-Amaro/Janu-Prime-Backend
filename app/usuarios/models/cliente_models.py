@@ -3,6 +3,7 @@ from localflavor.br.models import BRCPFField
 from phonenumber_field.modelfields import PhoneNumberField
 from usuarios.models.usuario_models import Usuario
 
+
 class Cliente(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     nome = models.CharField(max_length=255)
@@ -16,4 +17,3 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.nome
-

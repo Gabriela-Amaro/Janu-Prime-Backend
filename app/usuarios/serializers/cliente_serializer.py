@@ -22,7 +22,6 @@ class ClienteSerializer(serializers.ModelSerializer):
         read_only_fields = ["cpf", "pontos"]
 
 
-
 class ClienteRegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(label="Email")
     password = serializers.CharField(
@@ -70,4 +69,3 @@ class ClienteRegistrationSerializer(serializers.ModelSerializer):
             )
 
         return cliente
-

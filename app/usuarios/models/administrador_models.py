@@ -2,6 +2,7 @@ from django.db import models
 from localflavor.br.models import BRCPFField
 from usuarios.models.usuario_models import Usuario
 
+
 class Administrador(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     estabelecimento = models.ForeignKey(

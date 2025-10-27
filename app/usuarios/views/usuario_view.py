@@ -9,6 +9,7 @@ import logging
 
 logger = logging.getLogger("app")
 
+
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -22,16 +23,10 @@ class ChangePasswordView(generics.UpdateAPIView):
 
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            logger.info(
-                "Senha alterada para o usuário: %s",
-                self.object.email
-            )
+            logger.info("Senha alterada para o usuário: %s", self.object.email)
             return Response(
                 {"detail": "Senha alterada com sucesso."}, status=status.HTTP_200_OK
             )
 
-        logger.error(
-            "Erro ao alterar senha para o usuário: %s",
-            self.object.email
-        )
+        logger.error("Erro ao alterar senha para o usuário: %s", self.object.email)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
