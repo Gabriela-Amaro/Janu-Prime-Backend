@@ -33,3 +33,8 @@ class EstabelecimentoViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         pass
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"request": self.request, "view": self})
+        return context
