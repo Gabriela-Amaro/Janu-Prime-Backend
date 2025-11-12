@@ -22,8 +22,12 @@ class ProdutoSerializer(serializers.ModelSerializer):
 
         user = request.user
         is_superuser = user.is_authenticated and user.is_superuser
-        is_admin = user.is_authenticated and hasattr(user, 'administrador') and user.administrador
-        
+        is_admin = (
+            user.is_authenticated
+            and hasattr(user, "administrador")
+            and user.administrador
+        )
+
         is_privileged = is_superuser or is_admin
 
         if view.action in ["list", "retrieve"] and not is_privileged:

@@ -5,13 +5,13 @@ from .permissions import IsSuperUserOfSameEstablishmentOrPlatformAdmin
 
 
 class EstabelecimentoViewSet(
-        mixins.ListModelMixin,
-        mixins.RetrieveModelMixin,
-        mixins.UpdateModelMixin,
-        mixins.DestroyModelMixin,
-        viewsets.GenericViewSet,
-    ):
-    
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
+):
+
     serializer_class = EstabelecimentoSerializer
 
     def get_queryset(self):
