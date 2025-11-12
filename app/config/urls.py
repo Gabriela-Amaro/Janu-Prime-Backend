@@ -7,12 +7,13 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework.routers import DefaultRouter
 from estabelecimentos.views import EstabelecimentoViewSet
+from produtos.views import ProdutoViewSet
 
 
 router = DefaultRouter()
 
-# O router irá criar as rotas: /api/estabelecimentos/ e /api/estabelecimentos/<pk>/
 router.register(r"estabelecimentos", EstabelecimentoViewSet, basename="estabelecimento")
+router.register(r"produtos", ProdutoViewSet, basename="produto")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
