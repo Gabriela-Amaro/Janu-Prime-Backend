@@ -17,11 +17,8 @@ class Produto(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            if self.preco:
-                self.pontos = int(float(self.preco) * 20)
-            else:
-                self.pontos = 0
+        if self.preco:
+            self.pontos = int(float(self.preco) * 20)
 
         super().save(*args, **kwargs)
 
