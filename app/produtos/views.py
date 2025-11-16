@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 from .models import Produto
 from .serializers import ProdutoSerializer
-from .permissions import IsSuperUserOfSameEstablishmentOrPlatformAdmin
+from core.permissions import IsSuperUserOfSameEstablishmentOrPlatformAdmin
 
 
 class ProdutoViewSet(viewsets.ModelViewSet):
