@@ -11,10 +11,19 @@ class Produto(models.Model):
         upload_to="produtos/", blank=True
     )  # configurar o upload de imagens depois
     preco = models.DecimalField(max_digits=10, decimal_places=2)
-    pontos = models.IntegerField(default=0, blank=True)
+    pontos = models.IntegerField(default=0, blank=True, editable=False)
     ativo = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            if self.preco:
+                self.pontos = int(float(self.preco) * 20)
+            else:
+                self.pontos = 0
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.nome
