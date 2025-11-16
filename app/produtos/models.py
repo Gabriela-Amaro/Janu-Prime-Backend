@@ -3,7 +3,7 @@ from django.db import models
 
 class Produto(models.Model):
     estabelecimento = models.ForeignKey(
-        "estabelecimentos.Estabelecimento", on_delete=models.CASCADE
+        "estabelecimentos.Estabelecimento", on_delete=models.CASCADE, editable=False
     )
     nome = models.CharField(max_length=255)
     descricao = models.TextField(blank=True)
