@@ -1,4 +1,5 @@
 from django.db import models
+from constance import config
 
 
 class Produto(models.Model):
@@ -18,7 +19,7 @@ class Produto(models.Model):
 
     def save(self, *args, **kwargs):
         if self.preco:
-            self.pontos = int(float(self.preco) * 20)
+            self.pontos = int(float(self.preco) * 100 / (config.PORCENTAGEM_CASHBACK))
 
         super().save(*args, **kwargs)
 

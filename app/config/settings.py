@@ -48,7 +48,20 @@ INSTALLED_APPS = [
     "avaliacoes",
     "anuncios",
     "logs",
+    'constance',
+    'constance.backends.database',
 ]
+
+# Constance Configurations
+CONSTANCE_CONFIG = {
+    'PONTOS_POR_REAL_GASTO': (1.0, 'Quantos pontos o cliente ganha por R$ 1 gasto', float),
+    'PORCENTAGEM_CASHBACK': (5.0, 'Porcentagem do cashback (ex: 5 para 5%)', float),
+    'INTERVALO_COMPRA': (30, 'Intervalo mínimo entre compras em dias', int),
+    'TEMPO_VALIDADE_PONTOS': (365, 'Tempo de validade dos pontos em dias', int),
+}
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+# CONSTANCE_DATABASE_CACHE_BACKEND = 'default' # Uncomment if you want to use caching
 
 AUTH_USER_MODEL = "usuarios.Usuario"
 
