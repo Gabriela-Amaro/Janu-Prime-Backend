@@ -1,0 +1,48 @@
+from rest_framework.permissions import BasePermission
+
+class IsPlataformAdmin(BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_superuser:
+            return True
+        
+        return False
+    
+class IsEstablishmentAdmin(BasePermission):
+    def has_permission(self, request, view):
+        return (
+            request.user.is_authenticated
+            and hasattr(request.user, "administrador")
+        )
+
+    def has_object_permission(self, request, view, obj):
+        return (
+            self.has_permission(request, view)
+            and request.user.administrador.estabelecimento == obj.estabelecimento
+        )
+
+class IsEstablishmentSuperAdmin(BasePermission):
+    def has_permission(self, request, view):
+        return (
+            request.user.is_authenticated
+            and hasattr(request.user, "administrador")
+            and request.user.administrador.super_user
+        )
+
+    def has_object_permission(self, request, view, obj):
+        return (
+            self.has_permission(request, view)
+            and request.user.administrador.estabelecimento == obj.estabelecimento
+        )
+
+class IsCliente(BasePermission):
+    def has_permission(self, request, view):
+        return (
+            request.user.is_authenticated
+            and hasattr(request.user, "cliente")
+        )
+
+    def has_object_permission(self, request, view, obj):
+        return (
+            self.has_permission(request, view)
+            and request.user == obj.usuario
+        )

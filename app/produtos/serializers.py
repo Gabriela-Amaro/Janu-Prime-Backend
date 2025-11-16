@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Produto
+from core.permissions import IsEstablishmentAdmin, IsPlataformAdmin
 
 
 class ProdutoSerializer(serializers.ModelSerializer):
@@ -20,13 +21,8 @@ class ProdutoSerializer(serializers.ModelSerializer):
         if not request or not view:
             return fields
 
-        user = request.user
-        is_superuser = user.is_authenticated and user.is_superuser
-        is_admin = (
-            user.is_authenticated
-            and hasattr(user, "administrador")
-            and user.administrador
-        )
+        is_superuser = IsPlataformAdmin().has_permission(request, view)
+        is_admin = IsEstablishmentAdmin().has_permission(request, view)
 
         is_privileged = is_superuser or is_admin
 
