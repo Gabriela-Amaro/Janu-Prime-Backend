@@ -34,5 +34,6 @@ class ProdutoSerializer(serializers.ModelSerializer):
             fields.pop("created_at", None)
             fields.pop("updated_at", None)
             fields.pop("ativo", None)
+            fields.pop("preco", None)
 
         return fields
