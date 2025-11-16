@@ -8,12 +8,14 @@ from rest_framework_simplejwt.views import (
 from rest_framework.routers import DefaultRouter
 from estabelecimentos.views import EstabelecimentoViewSet
 from produtos.views import ProdutoViewSet
+from anuncios.views import AnuncioViewSet
 
 
 router = DefaultRouter()
 
 router.register(r"estabelecimentos", EstabelecimentoViewSet, basename="estabelecimento")
 router.register(r"produtos", ProdutoViewSet, basename="produto")
+router.register(r"anuncios", AnuncioViewSet, basename="anuncio")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
