@@ -37,6 +37,13 @@ class ProdutoSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         requesting_user = self.context["request"].user
 
+        if not requesting_user.is_superuser and not hasattr(
+          requesting_user, "administrador"
+        ):
+            raise serializers.ValidationError(
+                "Usuário não possui permissão para criar um produto."
+            )
+
         if not requesting_user.is_superuser:
             validated_data["estabelecimento"] = (
                 requesting_user.administrador.estabelecimento
