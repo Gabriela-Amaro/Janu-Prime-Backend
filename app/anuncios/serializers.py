@@ -31,29 +31,28 @@ class AnuncioSerializer(serializers.ModelSerializer):
             fields.pop("updated_at", None)
 
         return fields
-    
+
     def create(self, validated_data):
-      requesting_user = self.context["request"].user
+        requesting_user = self.context["request"].user
 
-      if not requesting_user.is_superuser and not hasattr(
-          requesting_user, "administrador"
-      ):
-          raise serializers.ValidationError(
-              "Usuário não possui permissão para criar um anuncio."
-          )
+        if not requesting_user.is_superuser and not hasattr(
+            requesting_user, "administrador"
+        ):
+            raise serializers.ValidationError(
+                "Usuário não possui permissão para criar um anuncio."
+            )
 
-      if not requesting_user.is_superuser:
-          validated_data["estabelecimento"] = (
-              requesting_user.administrador.estabelecimento
-          )
+        if not requesting_user.is_superuser:
+            validated_data["estabelecimento"] = (
+                requesting_user.administrador.estabelecimento
+            )
 
-      try:
-          anuncio = Anuncio.objects.create(**validated_data)
-          
-      except Exception as e:
-          raise serializers.ValidationError(
-              f"Ocorreu um erro durante o registro: {e}"
-          )
+        try:
+            anuncio = Anuncio.objects.create(**validated_data)
 
-      return anuncio
+        except Exception as e:
+            raise serializers.ValidationError(
+                f"Ocorreu um erro durante o registro: {e}"
+            )
 
+        return anuncio

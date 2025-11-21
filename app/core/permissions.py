@@ -1,24 +1,24 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
+
 class IsPlataformAdmin(BasePermission):
     def has_permission(self, request, view):
         if request.user.is_superuser:
             return True
-        
+
         return False
-    
+
+
 class IsEstablishmentAdmin(BasePermission):
     def has_permission(self, request, view):
-        return (
-            request.user.is_authenticated
-            and hasattr(request.user, "administrador")
-        )
+        return request.user.is_authenticated and hasattr(request.user, "administrador")
 
     def has_object_permission(self, request, view, obj):
         return (
             self.has_permission(request, view)
             and request.user.administrador.estabelecimento == obj.estabelecimento
         )
+
 
 class IsEstablishmentSuperAdmin(BasePermission):
     def has_permission(self, request, view):
@@ -34,18 +34,14 @@ class IsEstablishmentSuperAdmin(BasePermission):
             and request.user.administrador.estabelecimento == obj.estabelecimento
         )
 
+
 class IsCliente(BasePermission):
     def has_permission(self, request, view):
-        return (
-            request.user.is_authenticated
-            and hasattr(request.user, "cliente")
-        )
+        return request.user.is_authenticated and hasattr(request.user, "cliente")
 
     def has_object_permission(self, request, view, obj):
-        return (
-            self.has_permission(request, view)
-            and request.user == obj.usuario
-        )
+        return self.has_permission(request, view) and request.user == obj.usuario
+
 
 class IsSuperUserOfSameEstablishmentOrPlatformAdmin(BasePermission):
     message = "Você não tem permissão."

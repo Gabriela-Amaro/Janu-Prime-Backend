@@ -7,7 +7,13 @@ class ProdutoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Produto
         fields = "__all__"
-        read_only_fields = ["id", "estabelecimento", "pontos", "created_at", "updated_at"]
+        read_only_fields = [
+            "id",
+            "estabelecimento",
+            "pontos",
+            "created_at",
+            "updated_at",
+        ]
 
     def get_fields(self):
         """
@@ -33,12 +39,12 @@ class ProdutoSerializer(serializers.ModelSerializer):
             fields.pop("preco", None)
 
         return fields
-    
+
     def create(self, validated_data):
         requesting_user = self.context["request"].user
 
         if not requesting_user.is_superuser and not hasattr(
-          requesting_user, "administrador"
+            requesting_user, "administrador"
         ):
             raise serializers.ValidationError(
                 "Usuário não possui permissão para criar um produto."
@@ -51,11 +57,10 @@ class ProdutoSerializer(serializers.ModelSerializer):
 
         try:
             produto = Produto.objects.create(**validated_data)
-            
+
         except Exception as e:
             raise serializers.ValidationError(
                 f"Ocorreu um erro durante o registro: {e}"
             )
 
         return produto
-
