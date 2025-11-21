@@ -3,7 +3,7 @@ from django.db import models
 
 class Anuncio(models.Model):
     estabelecimento = models.ForeignKey(
-        "estabelecimentos.Estabelecimento", on_delete=models.CASCADE, editable=False
+        "estabelecimentos.Estabelecimento", on_delete=models.CASCADE
     )
     imagem = models.ImageField(
         upload_to="Anuncios/", blank=True  # mudar para false em produção

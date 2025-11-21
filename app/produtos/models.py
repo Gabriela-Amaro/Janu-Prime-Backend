@@ -4,7 +4,7 @@ from constance import config
 
 class Produto(models.Model):
     estabelecimento = models.ForeignKey(
-        "estabelecimentos.Estabelecimento", on_delete=models.CASCADE, editable=False
+        "estabelecimentos.Estabelecimento", on_delete=models.CASCADE
     )
     nome = models.CharField(max_length=255)
     descricao = models.TextField(blank=True)
