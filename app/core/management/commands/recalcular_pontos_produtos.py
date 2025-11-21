@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
-from produtos.models import Produto # Importe seu modelo Produto
-from constance import config # Importe o config
+from produtos.models import Produto 
+from constance import config 
 
 class Command(BaseCommand):
     help = 'Recalcula os pontos de todos os produtos com base na constante de cashback atual.'
