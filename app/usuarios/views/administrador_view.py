@@ -8,7 +8,9 @@ from ..serializers import (
 from ..permissions import (
     CanRegisterAdministrador,
     IsAdministradorOwnerOrSameEstablishmentSuperUser,
+    IsSuperUserAdministrador,
 )
+from core.permissions import IsPlataformAdmin
 
 import logging
 
@@ -63,3 +65,26 @@ class AdministradorDetailView(generics.RetrieveUpdateDestroyAPIView):
             email,
             extra={"estabelecimento_id": estabelecimento_id},
         )
+
+
+class AdministradorListView(generics.ListAPIView):
+    serializer_class = AdministradorSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        (IsSuperUserAdministrador | IsPlataformAdmin),
+    ]
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Administrador.objects.all()
+
+        if user.is_superuser:
+            estabelecimento_id = self.request.query_params.get("estabelecimento_id")
+            if estabelecimento_id:
+                queryset = queryset.filter(estabelecimento_id=estabelecimento_id)
+            return queryset
+
+        if hasattr(user, "administrador") and user.administrador:
+            return queryset.filter(estabelecimento=user.administrador.estabelecimento)
+
+        return Administrador.objects.none()

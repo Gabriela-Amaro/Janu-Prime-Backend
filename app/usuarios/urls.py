@@ -5,6 +5,7 @@ from .views import (
     AdministradorCadastroView,
     ClienteDetailView,
     AdministradorDetailView,
+    AdministradorListView,
 )
 
 urlpatterns = [
@@ -14,6 +15,9 @@ urlpatterns = [
         "clientes/<int:pk>/", ClienteDetailView.as_view(), name="cliente-detail"
     ),  # Read/Update/Delete
     # Administradores
+    path(
+        "administradores/", AdministradorListView.as_view(), name="administrador-list"
+    ),
     path(
         "administradores/cadastro/",
         AdministradorCadastroView.as_view(),
