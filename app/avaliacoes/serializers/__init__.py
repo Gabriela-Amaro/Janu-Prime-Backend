@@ -1,0 +1,3 @@
+from .avaliacao_estabelecimento_serializer import AvaliacaoEstabelecimentoSerializer
+from .avaliacao_plataforma_serializer import AvaliacaoPlataformaSerializer
+from .avaliacao_base_serializer import AvaliacaoBaseSerializer

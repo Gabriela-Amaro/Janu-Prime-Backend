@@ -10,6 +10,7 @@ from estabelecimentos.views import EstabelecimentoViewSet
 from produtos.views import ProdutoViewSet
 from anuncios.views import AnuncioViewSet
 from fotos_espaco.views import FotosEspacoViewSet
+from avaliacoes.views import AvaliacaoPlataformaViewSet, AvaliacaoEstabelecimentoViewSet
 
 
 router = DefaultRouter()
@@ -18,6 +19,16 @@ router.register(r"estabelecimentos", EstabelecimentoViewSet, basename="estabelec
 router.register(r"produtos", ProdutoViewSet, basename="produto")
 router.register(r"anuncios", AnuncioViewSet, basename="anuncio")
 router.register(r"fotos-espaco", FotosEspacoViewSet, basename="fotos_espaco")
+router.register(
+    r"avaliacoes/plataforma",
+    AvaliacaoPlataformaViewSet,
+    basename="avaliacao_plataforma",
+)
+router.register(
+    r"avaliacoes/estabelecimento",
+    AvaliacaoEstabelecimentoViewSet,
+    basename="avaliacao_estabelecimento",
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
